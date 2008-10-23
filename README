@@ -1,0 +1,51 @@
+AutoNestedLayouts
+=================
+
+Apply all hierarchical layout files automatically.
+
+
+Example
+=======
+
+  class Admin::MemberController < ApplicationController
+    nested_layout (partial files, ...)
+  end
+
+When we call "admin/member/index" page,
+it applies layout files in following order.
+
+1. render "app/views/admin/member/index.rhtml" without layout.
+2. apply "app/views/admin/member/_layout.rhtml" if exists.
+3. apply "app/views/admin/_layout.rhtml" if exists.
+4. apply "app/views/_layout.rhtml" if exists.
+
+
+  app/views/admin/member/index.rhtml:
+    Hello Nksk!
+
+  app/views/admin/member/_layout.rhtml:
+    [list member] [create member]
+    <%= yield %>
+
+  app/views/admin/_layout.rhtml:
+    Admin: [menu1] [menu2]
+    <%= yield %>
+
+  app/views/_layout.rhtml:
+    <%= yield %>
+        powered by Ruby on Rails
+
+
+The output html is as follows.
+
+    Admin: [menu1] [menu2]
+    [list member] [create member]
+    Hello Nksk!
+        powered by Ruby on Rails
+
+
+Author
+======
+
+Maiha <maiha@wota.jp>
+
