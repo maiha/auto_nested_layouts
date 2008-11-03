@@ -56,7 +56,7 @@ private
     layouts.reverse.each do |layout|
       content_for_layout = response.body
       erase_render_results
-      add_variables_to_assigns
+      add_variables_to_assigns if respond_to?(:add_variables_to_assigns, true)
       @template.instance_variable_set("@content_for_layout", content_for_layout)
       render :partial=>layout
     end
